@@ -59,7 +59,7 @@ const NumberOfUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/numberofusers`);
+        const response = await axios.get(`${BASE_URL}/numberOfUsers`);
         const sortedData = response.data.sort((a, b) => {
           if (a.years === b.years) {
             return a.month - b.month;
