@@ -188,6 +188,7 @@ const Unit = ({ link }) => {
     }
   };
 
+  
   const handleDeleteUnit = async (unitIds) => {
     try {
       if (!Array.isArray(unitIds)) {

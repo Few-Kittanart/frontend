@@ -152,7 +152,7 @@ const NumberOfUsers = () => {
       );
   
       if (response.data.message === "Data added successfully") {
-        const fetchData = await axios.get(`${BASE_URL}/numberofusers`);
+        const fetchData = await axios.get(`${BASE_URL}/numberOfUsers`);
         setUsersData(fetchData.data);
         handleCloseModal();
         toast.success("บันทึกข้อมูลสำเร็จ");
