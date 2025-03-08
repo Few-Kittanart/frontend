@@ -45,7 +45,7 @@ const NewsDetail = () => {
             <img
               src={`${BASE_URL}/images/${news.cover_image}`}
               alt={news.title}
-              style={{ width: '100%', maxHeight: '400px', objectFit: 'cover', borderRadius: '8px', marginBottom: '20px' }}
+              style={{ width: '100%', maxHeight: '100%', objectFit: 'cover', borderRadius: '8px', marginBottom: '20px' }}
             />
           </Col>
         </Row>

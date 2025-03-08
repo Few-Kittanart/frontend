@@ -279,62 +279,71 @@ const ExamStatus = () => {
   
 
   const handleEditExamStatus = async () => {
-    if (!selectedExamStatus || !selectedExamStatus.id) {
-      toast.error("ไม่สามารถแก้ไขข้อมูลได้เนื่องจากข้อมูลไม่ถูกต้อง");
-      return;
-    }
-  
-    try {
-      const requestData = {
-        years: parseInt(years), // ใช้ปี พ.ศ. ตรงๆ
-        month: parseInt(month),
-        status: status === "1",
-      };
-  
-      const response = await axios.put(
-        `${BASE_URL}/examStatus/${selectedExamStatus.id}`,
-        requestData
-      );
-  
-      if (response.data) {
-        const fetchData = await axios.get(`${BASE_URL}/examStatus`);
-        setExamStatusData(fetchData.data);
-        handleCloseModal();
-        toast.success("บันทึกการแก้ไขสำเร็จ");
-      }
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.detail) {
-        // แสดงข้อความ Toast ตามที่ได้จาก Backend
-        toast.warning(error.response.data.detail);
-      } else {
-        console.error("Error updating data:", error);
-        toast.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล");
-      }
-    }
-  };
-  
-  const handleDeleteExamStatus = async () => {
-    if (!selectedExamStatus || !selectedExamStatus.id) {
-      toast.error("ไม่สามารถลบข้อมูลได้เนื่องจากข้อมูลไม่ถูกต้อง");
-      return;
-    }
+  if (!selectedExamStatus || !selectedExamStatus.id) {
+    toast.error("ไม่สามารถแก้ไขข้อมูลได้เนื่องจากข้อมูลไม่ถูกต้อง");
+    return;
+  }
+  try {
+    const requestData = {
+      years: parseInt(years) - 543, // แปลงปีจาก พ.ศ. เป็น ค.ศ.
+      month: parseInt(month),
+      status: status === "1" || status === true,
+    };
 
-    try {
-      const response = await axios.delete(
-        `${BASE_URL}/examStatus/${selectedExamStatus.id}`
-      );
+    const response = await axios.put(
+      `${BASE_URL}/examStatus/${selectedExamStatus.id}`,
+      requestData
+    );
 
-      if (response.data) {
-        const fetchData = await axios.get(`${BASE_URL}/examStatus`);
-        setExamStatusData(fetchData.data);
-        handleCloseModal();
-        toast.success("ลบข้อมูลสำเร็จ");
-      }
-    } catch (error) {
+    if (response.data) {
+      const fetchData = await axios.get(`${BASE_URL}/examStatus`);
+      setExamStatusData(fetchData.data);
+      handleCloseModal();
+      toast.success("บันทึกการแก้ไขสำเร็จ");
+    }
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.detail) {
+      toast.warning(error.response.data.detail);
+    } else {
+      toast.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล");
+    }
+  }
+};
+
+  
+  
+const handleDeleteExamStatus = async () => {
+  console.log("Delete function called with:", selectedExamStatus); // ใส่ log เพื่อดูข้อมูล
+  
+  if (!selectedExamStatus || !selectedExamStatus.id) {
+    toast.error("ไม่สามารถลบข้อมูลได้เนื่องจากข้อมูลไม่ถูกต้อง");
+    return;
+  }
+
+  try {
+    console.log("Deleting from URL:", `${BASE_URL}/examStatus/${selectedExamStatus.id}`); // log URL
+    
+    const response = await axios.delete(
+      `${BASE_URL}/examStatus/${selectedExamStatus.id}`
+    );
+
+    if (response.data) {
+      const fetchData = await axios.get(`${BASE_URL}/examStatus`);
+      setExamStatusData(fetchData.data);
+      handleCloseModal();
+      toast.success("ลบข้อมูลสำเร็จ");
+    }
+  } catch (error) {
+    console.error("Full error:", error); // log ข้อผิดพลาดทั้งหมด
+    
+    if (error.response && error.response.data && error.response.data.detail) {
+      toast.warning(error.response.data.detail);
+    } else {
       console.error("Error deleting data:", error);
       toast.error("เกิดข้อผิดพลาดในการลบข้อมูล");
     }
-  };
+  }
+};
 
   return (
     <div>

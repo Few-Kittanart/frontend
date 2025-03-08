@@ -166,9 +166,16 @@ const NumberOfUsers = () => {
 
   const handleEditUser = async () => {
     try {
+      // Make sure selectedUser and selectedUser.years are defined
+      if (!selectedUser || !selectedUser.years) {
+        toast.error("ไม่สามารถระบุข้อมูลที่ต้องการแก้ไขได้");
+        return;
+      }
+
       const yearCE = parseInt(newYear) - 543;
+      
       const response = await axios.put(
-        `${BASE_URL}/update-numberofusers/${selectedUser.id}`,
+        `${BASE_URL}/update-numberofusers/${selectedUser.years}`,
         {
           years: yearCE,
           amount: parseInt(newAmount),
@@ -176,29 +183,35 @@ const NumberOfUsers = () => {
       );
 
       if (response.data.message === "Data updated successfully") {
-        const fetchData = await axios.get(
-          `${BASE_URL}/numberofusers`
-        );
+        const fetchData = await axios.get(`${BASE_URL}/numberOfUsers`);
         setUsersData(fetchData.data);
         handleCloseModal();
         toast.success("บันทึกการแก้ไขสำเร็จ");
       }
     } catch (error) {
       console.error("Error updating data:", error);
-      toast.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล");
+      if (error.response && error.response.status === 400) {
+        toast.error("ปีที่ต้องการแก้ไขมีข้อมูลอยู่แล้ว");
+      } else {
+        toast.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล");
+      }
     }
-  };
+};
 
   const handleDeleteUser = async () => {
     try {
+      // Make sure selectedUser and selectedUser.years are defined
+      if (!selectedUser || !selectedUser.years) {
+        toast.error("ไม่สามารถระบุข้อมูลที่ต้องการลบได้");
+        return;
+      }
+
       const response = await axios.delete(
-        `${BASE_URL}/delete-numberofusers/${selectedUser.id}`
+        `${BASE_URL}/delete-numberofusers/${selectedUser.years}`
       );
 
       if (response.data.message === "Data deleted successfully") {
-        const fetchData = await axios.get(
-          `${BASE_URL}/numberofusers`
-        );
+        const fetchData = await axios.get(`${BASE_URL}/numberOfUsers`);
         setUsersData(fetchData.data);
         handleCloseModal();
         toast.success("ลบข้อมูลสำเร็จ");
@@ -207,7 +220,7 @@ const NumberOfUsers = () => {
       console.error("Error deleting data:", error);
       toast.error("เกิดข้อผิดพลาดในการลบข้อมูล");
     }
-  };
+};
 
   const handleDeleteSelectedUsers = async () => {
     try {

@@ -55,6 +55,30 @@ h2 {
   background-color: #4cae4c;
 }
 
+/* สี Badge สำหรับ few*/
+.badge-few{
+  background-color: #b65ab9;
+}
+.badge-few:hover{
+  background-color: #b65ab9;
+}
+
+/* สี Badge สำหรับ zan */
+.badge-zan {
+  background-color: #b8895c; 
+}
+.badge-zan:hover {
+  background-color: #b8895c;
+}
+
+/* สี Badge สำหรับ beam */
+.badge-beam {
+  background-color: #a84b4b; 
+}
+.badge-beam:hover {
+  background-color: #a84b4b;
+}
+
 /* สี Badge สำหรับ Advisor */
 .badge-advisor {
   background-color: #337ab7; /* สีน้ำเงิน */

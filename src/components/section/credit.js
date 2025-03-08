@@ -17,6 +17,16 @@ const Credit = () => {
         <a href="https://www.facebook.com/min519" className="badge badge-playstore" target="_blank" rel="noopener noreferrer">
           นายศุภณัฐ ขุนนุ้ย
         </a>
+        <a href="https://www.facebook.com/few.kittanart/" className="badge badge-few" target="_blank" rel="noopener noreferrer">
+          นายภานุพงศ์ กิตต์ธนาฒย์
+        </a>
+        <br></br>
+        <a href="https://www.facebook.com/pradit.bunchuea.2024" className="badge badge-beam" target="_blank" rel="noopener noreferrer">
+          นายประดิษฐ์ บุญเชื้อ
+        </a>
+        <a href="https://www.facebook.com/tanawut.phuengprasert" className="badge badge-zan" target="_blank" rel="noopener noreferrer">
+          นายธนาวุฒิ พึ่งประเสิรฐ
+        </a>
         <a href="https://rps.wu.ac.th/researchersInfo/45" className="badge badge-advisor" target="_blank" rel="noopener noreferrer">
           Advisor : อาจารย์จักริน วีแก้ว
         </a>

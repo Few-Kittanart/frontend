@@ -45,8 +45,7 @@ const Building = () => {
     const fetchData = async () => {
       try {
         const buildingResponse = await axios.get(`${BASE_URL}/buildings`);
-        const groupResponse = await axios.get(`${BASE_URL}/groupbuildings`); // ดึงข้อมูลจาก groupbuilding
-        
+        const groupResponse = await axios.get(`${BASE_URL}/groupofbuildings`); // ดึงข้อมูลจาก groupofbuilding
         // จัดเรียงข้อมูล building ตามชื่อ
         const sortedBuildingData = buildingResponse.data.sort((a, b) => {
           return a.name.localeCompare(b.name);
@@ -123,13 +122,14 @@ const Building = () => {
   const handleAddBuilding = async () => {
     try {
       const requestData = {
+        id: null, // Add this field - or use a generated ID if needed
         code,
         name,
         area,
         idGroup: idGroup ? parseInt(idGroup) : null,
       };
       
-      console.log("Request Data:", requestData);  // ตรวจสอบข้อมูลที่ถูกส่งไป
+      console.log("Request Data:", requestData);
   
       const response = await axios.post(`${BASE_URL}/buildings/`, requestData);
   
@@ -172,23 +172,52 @@ const Building = () => {
 };
 
 
-  const handleDeleteBuilding = async () => {
-    try {
-      const response = await axios.delete(
-        `${BASE_URL}/buildings/${selectedBuilding.id}`
-      );
-
-      if (response.data) {
-        const fetchData = await axios.get(`${BASE_URL}/buildings`);
-        setBuildingData(fetchData.data);
-        handleCloseModal();
-        toast.success("ลบข้อมูลสำเร็จ");
-      }
-    } catch (error) {
-      console.error("Error deleting data:", error);
-      toast.error("เกิดข้อผิดพลาดในการลบข้อมูล");
+const handleDeleteBuilding = async () => {
+  try {
+    // Log the entire selectedBuilding object to inspect all its properties
+    console.log("Selected building object:", selectedBuilding);
+    
+    // Check if selectedBuilding exists
+    if (!selectedBuilding) {
+      console.error("selectedBuilding is null or undefined");
+      toast.error("ไม่พบข้อมูลอาคารที่ต้องการลบ");
+      return;
     }
-  };
+    
+    // Check if id exists and what type it is
+    console.log("Building ID type:", typeof selectedBuilding.id);
+    console.log("Building ID value:", selectedBuilding.id);
+    
+    if (!selectedBuilding.id && selectedBuilding.id !== 0) {
+      console.error("Building ID is missing or undefined");
+      toast.error("ไม่พบ ID ของอาคารที่ต้องการลบ");
+      return;
+    }
+    
+    // Construct and log the full URL
+    const deleteUrl = `${BASE_URL}/buildings/${selectedBuilding.id}`;
+    console.log("Delete URL:", deleteUrl);
+    
+    const response = await axios.delete(deleteUrl);
+    console.log("Delete response:", response);
+
+    if (response.data) {
+      const fetchData = await axios.get(`${BASE_URL}/buildings`);
+      setBuildingData(fetchData.data);
+      handleCloseModal();
+      toast.success("ลบข้อมูลสำเร็จ");
+    }
+  } catch (error) {
+    console.error("Error deleting data:", error);
+    
+    if (error.response) {
+      console.error("Error status:", error.response.status);
+      console.error("Error data:", JSON.stringify(error.response.data, null, 2));
+    }
+    
+    toast.error("เกิดข้อผิดพลาดในการลบข้อมูล");
+  }
+};
 
   const handleSort = (key) => {
     let direction = "ascending";

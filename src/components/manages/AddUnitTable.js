@@ -71,16 +71,19 @@ const AddUnitTable = () => {
   ];
 
   const handleInputChange = (index, field, value) => {
+    console.log('handleInputChange',index, field, value)
     const updatedData = [...unitData];
     updatedData[index][field] = value;
     setUnitData(updatedData);
   };
 
   const handleAddRow = () => {
+    console.log('unitData',unitData)
     // เพิ่มแถวใหม่โดยแสดงอาคารถัดไป
+    console.log ('buildingData',buildingData)
     const nextBuilding = buildingData[unitData.length];
     if (nextBuilding) {
-      setUnitData([...unitData, { idBuilding: nextBuilding.id, amount: "" }]);
+      setUnitData([...unitData, { idBuilding: nextBuilding.id === undefined ?0: nextBuilding.id , amount: "" }]);
       setVisibleBuildings(visibleBuildings + 1); // เพิ่มจำนวนอาคารที่แสดง
     } else {
       toast.error("ไม่มีอาคารเพิ่มเติมให้แสดงแล้ว");
@@ -110,7 +113,12 @@ const AddUnitTable = () => {
     // ตรวจสอบว่ามีข้อมูลซ้ำในปีและเดือนนี้หรือไม่ (ปีและเดือนต้องตรงกันทั้งคู่)
     try {
       const existingData = await axios.get(
-        `${BASE_URL}/units?year=${year - 543}&month=${month}`
+        `${BASE_URL}/units`, {
+          params: {
+            year: year - 543,
+            month: month
+          }
+        }
       );
       const duplicate = existingData.data.some(
         (data) =>

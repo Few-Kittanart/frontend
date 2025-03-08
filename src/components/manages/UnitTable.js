@@ -42,9 +42,8 @@ const Unit = ({ link }) => {
       try {
         const [unitResponse, buildingResponse] = await Promise.all([
           axios.get(`${BASE_URL}/unit/`),
-          axios.get(`${BASE_URL}/buildings/`)
+          axios.get(`${BASE_URL}/groupbuildings/`)
         ]);
-
         const buildingMap = {};
         buildingResponse.data.forEach(building => {
           buildingMap[building.id] = building.name;
@@ -194,12 +193,14 @@ const Unit = ({ link }) => {
       if (!Array.isArray(unitIds)) {
         unitIds = [unitIds];
       }
-
+  
+      // Make separate DELETE requests for each ID
       await Promise.all(
         unitIds.map((unitId) => axios.delete(`${BASE_URL}/units/${unitId}`))
       );
-
-      const fetchData = await axios.get(`${BASE_URL}/units/`);
+  
+      // Use the /units endpoint without trailing slash
+      const fetchData = await axios.get(`${BASE_URL}/units`);
       setOriginalUnitData(fetchData.data);
       setUnitData(fetchData.data);
       setSelectedUnits([]);
