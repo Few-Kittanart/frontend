@@ -4,38 +4,64 @@ import OtherSidebar from '../../components/sidebar/admin';
 import OtherNavMenu from '../../components/navmenu/adminNabmenu';
 import Footer from '../../components/footer';
 import ForecastComponent1 from '../../components/prediction/ForecastComponent1';
-import './AdminPredictPage.css'; // เปลี่ยนชื่อไฟล์ CSS
+import './AdminPredictPage.css';
 
 const AdminPredictPage = () => {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // ตรวจสอบว่าฟังก์ชัน tos และ รีเซ มีการ import หรือไม่
-  // ถ้าไม่จำเป็นต้องใช้ฟังก์ชันนี้ สามารถลบ useEffect นี้ออกได้
   useEffect(() => {
-    // ถ้าฟังก์ชัน tos และ รีเซ จำเป็นต้องใช้ ให้ import ฟังก์ชันนี้เข้ามา
-    // tos();
-    // รีเซ();
+    // Simulate loading time - adjust timeout as needed
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3500);
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <div className="page-container">
-      <OtherNavMenu handleShow={handleShow} />
-      
-      <Container fluid className="p-0 content-wrap">
-        <div className="">
-          <OtherSidebar show={show} handleClose={handleClose} />
-          <div className="content-area">
-            <ForecastComponent1 />
-            
-          </div>
+  // Loading screen component
+  const LoadingScreen = () => (
+    <div className="loading-screen">
+      <div className="loading-container">
+        <div className="logo">
+          <div className="secondary-spinner"></div>
+          <div className="spinner"></div>
+          <img src="/favicon.ico" alt="Walailak University Logo" />
         </div>
-      </Container>
-
-      <Footer />
+        <div className="university-name">มหาวิทยาลัยวลัยลักษณ์</div>
+        <div className="tagline">WALAILAK UNIVERSITY</div>
+        <div className="loading-text">กำลังโหลดระบบพยากรณ์...</div>
+        <div className="progress-bar">
+          <div className="progress"></div>
+        </div>
+      </div>
     </div>
+  );
+
+  return (
+    <>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <div className="page-container">
+          <OtherNavMenu handleShow={handleShow} />
+          
+          <Container fluid className="p-0 content-wrap">
+            <div className="">
+              <OtherSidebar show={show} handleClose={handleClose} />
+              <div className="content-area">
+                <ForecastComponent1 />
+              </div>
+            </div>
+          </Container>
+
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
 

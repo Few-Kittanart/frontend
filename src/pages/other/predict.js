@@ -22,22 +22,27 @@ const OtherPredictPage = () => {
   }, []);
 
   return (
-    <div className="page-container">
-      <OtherNavMenu handleShow={handleShow} />
-      
-      <Container fluid className="p-0 content-wrap">
-        <div className="">
-          <OtherSidebar show={show} handleClose={handleClose} />
-          <div className="content-area">
-            <ForecastComponentOther />
-            
+  <>
+    {loading ? (
+      <LoadingScreen />
+    ) : (
+      <div className="page-container">
+        <OtherNavMenu handleShow={handleShow} />
+        
+        <Container fluid className="p-0 content-wrap">
+          <div className="">
+            <OtherSidebar show={show} handleClose={handleClose} />
+            <div className="content-area">
+              <ForecastComponent1 />
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
 
-      <Footer />
-    </div>
-  );
+        <Footer />
+      </div>
+    )}
+  </>
+);
 };
 
 export default OtherPredictPage;

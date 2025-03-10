@@ -14,6 +14,7 @@ const PredictionSummaryBoxes = () => {
   useEffect(() => {
     const fetchPredictions = async () => {
       try {
+        console.log(BASE_URL)
         const response = await fetch(`${BASE_URL}/prediction_sum_by_month`);
         if (!response.ok) {
           throw new Error('Network response was not ok');

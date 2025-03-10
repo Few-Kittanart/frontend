@@ -79,7 +79,7 @@ const Building = () => {
   const handleShowModal = (type, building = null) => {
     setModalType(type);
     setSelectedBuilding(building);
-
+console.log('building.idGroup',building.idGroup)
     if (type === "edit" && building) {
       setCode(building.code);
       setName(building.name);
@@ -149,6 +149,7 @@ const Building = () => {
 
   const handleEditBuilding = async () => {
     try {
+      console.log('selectedBuilding.id',selectedBuilding.id)
         const response = await axios.put(
             `${BASE_URL}/buildings/${selectedBuilding.id}`,
             {
