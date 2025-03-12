@@ -15,6 +15,9 @@ const ForecastComponent = () => {
   const [modelName, setModelName] = useState("");
 
   const handleForecast = async () => {
+    console.log('year', year)
+    console.log('month', month)
+    console.log('modelName', modelName)
     setLoading(true);
     setError(null);
 
