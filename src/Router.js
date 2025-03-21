@@ -40,6 +40,11 @@ import CeoPredictPage from "./pages/ceo/predict";
 import OtherPage1 from "./pages/other";
 import OtherPredictPage from "./pages/other/predict";
 import KnowHowPage from "./pages/KnowHowPage";
+import CalendarCom from "./components/CalendarCom"; // เพิ่มcalendar
+import AddHolidayTable from "./pages/admin/addHolidayTable"; // เพิ่มadd holiday table
+import HolidayTable from "./pages/admin/holidayTable";
+import EmpholidayTable from "./pages/employee/addHolidayTable"; // เพิ่มadd holiday table
+import EmpaddHolidayTable from "./pages/employee/holidayTable";
 function AppRouter() {
   return (
     <AuthProvider>
@@ -73,7 +78,14 @@ function AppRouter() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/admin/calendar"
+            element={
+              <ProtectedRoute allowedStatus={[0]}>
+                <CalendarCom />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/users"
             element={
@@ -147,6 +159,22 @@ function AppRouter() {
             }
           />
           <Route
+            path="/admin/dataHoliday"
+            element={
+              <ProtectedRoute allowedStatus={[0,1]}>
+                <HolidayTable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/dataaddholiday"
+            element={
+              <ProtectedRoute allowedStatus={[0,1]}>
+                <AddHolidayTable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/admin/createnews"
             element={
               <ProtectedRoute allowedStatus={[0]}>
@@ -171,11 +199,35 @@ function AppRouter() {
               </ProtectedRoute>
             }
           />
-                    <Route
+          <Route
             path="/employee/predict"
             element={
               <ProtectedRoute allowedStatus={[1]}>
                 <EmpPredictPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employee/calendar"
+            element={
+              <ProtectedRoute allowedStatus={[1]}>
+                <CalendarCom />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employee/dataHoliday"
+            element={
+              <ProtectedRoute allowedStatus={[0,1]}>
+                <EmpaddHolidayTable />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employee/dataaddholiday"
+            element={
+              <ProtectedRoute allowedStatus={[0,1]}>
+                <EmpholidayTable />
               </ProtectedRoute>
             }
           />

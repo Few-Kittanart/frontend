@@ -99,9 +99,6 @@ const ForecastComponentEmp = () => {
         <div className="box-component">
           <ComparisonChart />
         </div>
-        <div className="box-component">
-          <DrillDownIdBuilding />
-        </div>
       </div>
     </Container>
   );

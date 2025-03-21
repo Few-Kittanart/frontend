@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import axios from "axios";
 import {
   Container,
   Form,
@@ -7,10 +8,10 @@ import {
   Badge,
 } from "react-bootstrap";
 import PredictionSummaryBoxes from "./PredictionSummaryBoxes";
-import DrillDownChart from "./DrillDownChart";
 import ComparisonChart from "./ComparisonChart";
 import DrillDownIdBuilding from "./DrillDownIdBuilding";
 import "./Table.css";
+import BASE_URL from "../../api";
 
 const ThaiMonthBadge = ({ month }) => {
   const thaiMonths = [
@@ -60,8 +61,41 @@ const YearBadge = ({ year }) => {
 };
 
 const ForecastComponentOther = () => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCurrentMonth = async () => {
+      try {
+        setLoading(true);
+        // Fetch the current prediction month from the API
+        const response = await axios.get(`${BASE_URL}/current-month`);
+        const { year, month } = response.data;
+        setYear(year);
+        setMonth(month);
+        
+        // Check if predictions exist for this month/year
+        const checkResponse = await axios.get(
+          `${BASE_URL}/check-predictions?year=${year}&month=${month}`
+        );
+        
+        if (checkResponse.data.length > 0) {
+          setData(checkResponse.data);
+        }
+        
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchCurrentMonth();
+  }, []);
 
   return (
     <Container>

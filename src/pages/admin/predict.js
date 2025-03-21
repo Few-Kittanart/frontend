@@ -4,6 +4,7 @@ import OtherSidebar from '../../components/sidebar/admin';
 import OtherNavMenu from '../../components/navmenu/adminNabmenu';
 import Footer from '../../components/footer';
 import ForecastComponent1 from '../../components/prediction/ForecastComponent1';
+import DrillDownIdBuilding from '../../components/prediction/DrillDownIdBuilding';
 import './AdminPredictPage.css';
 
 const AdminPredictPage = () => {

@@ -331,9 +331,10 @@ const ForecastComponent1 = () => {
           <div className="box-component">
             <ComparisonChart />
           </div>
-          <div className="box-component">
+          {/* <div className="box-component">
             <DrillDownIdBuilding />
-          </div>
+          </div> */}
+          
         </div>
       )}
       <ToastContainer /> {/* Container สำหรับการแสดงการแจ้งเตือน */}

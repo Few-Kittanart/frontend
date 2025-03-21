@@ -1,7 +1,8 @@
 import React from "react";
 import { Nav, Offcanvas, NavDropdown } from "react-bootstrap";
-import { FaBars, FaHome, FaChartLine, FaDatabase, FaUserCog,FaBullhorn , FaHotel,FaMale,FaCity,FaSchool ,FaBook ,FaChargingStation    } from "react-icons/fa";
+import { FaBars, FaHome, FaChartLine, FaDatabase, FaUserCog,FaBullhorn , FaHotel,FaMale,FaCity,FaSchool ,FaBook ,FaChargingStation, FaCalendar , FaCalendarTimes   } from "react-icons/fa";
 import "./admin.css";
+import { FaTimes } from 'react-icons/fa';
 
 const EmpSidebar = ({ show, handleClose, handleShow }) => {
   return (
@@ -40,6 +41,10 @@ const EmpSidebar = ({ show, handleClose, handleShow }) => {
               <FaMale  style={{ marginRight: "8px" }} />
               จำนวนผู้ใช้ไฟฟ้า
             </NavDropdown.Item>
+            <NavDropdown.Item href="/employee/dataHoliday">
+              <FaCalendarTimes  style={{ marginRight: "8px" }} />
+                จำนวนวันหยุด
+              </NavDropdown.Item>
             <NavDropdown.Item href="/employee/dataBuilding">
               <FaHotel  style={{ marginRight: "8px" }} />
               อาคารและพื้นที่การใช้สอย
@@ -57,7 +62,10 @@ const EmpSidebar = ({ show, handleClose, handleShow }) => {
               สถานะการเปิด-ปิด เรียน
             </NavDropdown.Item>
           </NavDropdown>
-
+          <Nav.Link href="/employee/calendar">
+            <FaCalendar style={{ marginRight: "8px" }} /> 
+            ปฏิทิน
+          </Nav.Link>
           <Nav.Link href="/employee/viewnews">
             <FaBullhorn  style={{ marginRight: "8px" }} />
             ประกาศข่าวสาร
@@ -94,6 +102,10 @@ const EmpSidebar = ({ show, handleClose, handleShow }) => {
             <NavDropdown.Item href="/employee/datauser">
               <FaMale  style={{ marginRight: "8px" }} />
               จำนวนผู้ใช้ไฟฟ้า
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/employee/dataHoliday">
+              <FaCalendarTimes  style={{ marginRight: "8px" }} />
+              จำนวนวันหยุด
             </NavDropdown.Item>
             <NavDropdown.Item href="/employee/dataBuilding">
               <FaHotel  style={{ marginRight: "8px" }} />

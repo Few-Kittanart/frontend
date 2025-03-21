@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav, Offcanvas, NavDropdown } from "react-bootstrap";
-import { FaBars, FaHome, FaChartLine, FaDatabase, FaUserCog,FaBullhorn , FaHotel,FaMale,FaCity,FaSchool ,FaBook ,FaChargingStation    } from "react-icons/fa";
+import { FaBars, FaHome, FaChartLine, FaDatabase, FaUserCog,FaBullhorn , FaHotel,FaMale,FaCity,FaSchool ,FaBook ,FaChargingStation, FaCalendar, FaTimes , FaCalendarTimes   } from "react-icons/fa";
 import "./admin.css";
 
 const AdminSidebar = ({ show, handleClose, handleShow }) => {
@@ -40,6 +40,10 @@ const AdminSidebar = ({ show, handleClose, handleShow }) => {
               <FaMale  style={{ marginRight: "8px" }} />
               จำนวนผู้ใช้ไฟฟ้า
             </NavDropdown.Item>
+            <NavDropdown.Item href="/admin/dataHoliday">
+              <FaCalendarTimes  style={{ marginRight: "8px" }} />
+              จำนวนวันหยุด
+            </NavDropdown.Item>
             <NavDropdown.Item href="/admin/dataBuilding">
               <FaHotel  style={{ marginRight: "8px" }} />
               อาคารและพื้นที่การใช้สอย
@@ -58,6 +62,11 @@ const AdminSidebar = ({ show, handleClose, handleShow }) => {
             </NavDropdown.Item>
           </NavDropdown>
           
+          <Nav.Link href="/admin/calendar">
+            <FaCalendar style={{ marginRight: "8px" }} />
+            ปฏิทิน
+          </Nav.Link>
+
           <Nav.Link href="/admin/users">
             <FaUserCog style={{ marginRight: "8px" }} />
             จัดการผู้ใช้งานระบบ
@@ -100,6 +109,10 @@ const AdminSidebar = ({ show, handleClose, handleShow }) => {
               <FaMale  style={{ marginRight: "8px" }} />
               จำนวนผู้ใช้ไฟฟ้า
             </NavDropdown.Item>
+            <NavDropdown.Item href="/admin/dataHoliday">
+              <FaCalendarTimes  style={{ marginRight: "8px" }} />
+              จำนวนวันหยุด
+            </NavDropdown.Item>
             <NavDropdown.Item href="/admin/dataBuilding">
               <FaHotel  style={{ marginRight: "8px" }} />
               อาคารและพื้นที่การใช้สอย
@@ -117,7 +130,10 @@ const AdminSidebar = ({ show, handleClose, handleShow }) => {
               สถานะการเปิด-ปิด เรียน
             </NavDropdown.Item>
           </NavDropdown>
-          
+          <Nav.Link href="/admin/calendar">
+            <FaCalendar style={{ marginRight: "8px" }} />
+            ปฏิทิน
+          </Nav.Link>
           <Nav.Link href="/admin/users">
             <FaUserCog style={{ marginRight: "8px" }} />
             จัดการผู้ใช้งานระบบ
